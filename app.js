@@ -34,9 +34,7 @@ function calculateAge(dob) {
     return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
 
-// ====================
 // POST: Add User
-// ====================
 app.post('/submit', (req, res) => {
     const { name, dob, address } = req.body;
 
@@ -69,9 +67,8 @@ app.post('/submit', (req, res) => {
     );
 });
 
-// ====================
+
 // GET: View All Users
-// ====================
 app.get('/users', (req, res) => {
     db.all(
         "SELECT * FROM users",
@@ -88,9 +85,8 @@ app.get('/users', (req, res) => {
     );
 });
 
-// ====================
+
 // GET: Export to Excel
-// ====================
 app.get('/export-excel', (req, res) => {
     db.all(
         "SELECT * FROM users",
@@ -127,16 +123,13 @@ app.get('/export-excel', (req, res) => {
     );
 });
 
-// ====================
+
 // Home Route
-// ====================
 app.get('/', (req, res) => {
     res.send('Server is working!');
 });
 
-// ====================
 // Start Server
-// ====================
 const PORT = 3000;
 
 app.listen(PORT, () => {
