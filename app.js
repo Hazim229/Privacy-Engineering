@@ -22,6 +22,7 @@ db.run(`
         name TEXT,
         dob TEXT,
         address TEXT,
+        symptom TEXT,
         is_adult INTEGER
     )
 `);
@@ -36,7 +37,7 @@ function calculateAge(dob) {
 
 // POST: Add User
 app.post('/submit', (req, res) => {
-    const { name, dob, address } = req.body;
+    const { name, dob, address, symptom } = req.body;
 
     if (!name || !dob || !address) {
         return res.status(400).json({
@@ -48,9 +49,9 @@ app.post('/submit', (req, res) => {
     const isAdult = age >= 18 ? 1 : 0;
 
     db.run(
-        `INSERT INTO users (name, dob, address, is_adult)
-         VALUES (?, ?, ?, ?)`,
-        [name, dob, address, isAdult],
+        `INSERT INTO users (name, dob, address, symptom, is_adult)
+         VALUES (?, ?, ?, ?, ?)`,
+        [name, dob, address, req.body.symptom || '', isAdult],
         function (err) {
             if (err) {
                 return res.status(500).json({
